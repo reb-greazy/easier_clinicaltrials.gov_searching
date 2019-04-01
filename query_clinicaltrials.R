@@ -4,7 +4,6 @@
 
 ########
 #uncomment to install packages
-#install.packages('rentrez') 
 #install.packages('RPostgreSQL')
 
 library(RPostgreSQL)
@@ -15,10 +14,10 @@ drv <- dbDriver('PostgreSQL')
 
 # SQL query string that you want to query the AACT database with, can change this string to get different information:https://aact.ctti-clinicaltrials.org/learn_more
 
-#You may want to reference the AACT database schema to help with your query: 
+#You may want to reference the AACT database schema to help with your query:
 
 #Example Query
-query_string="SELECT  t1.nct_id, t1.downcase_mesh_term, t2.downcase_name, t.study_type, 
+query_string="SELECT  t1.nct_id, t1.downcase_mesh_term, t2.downcase_name, t.study_type,
 t5.contact_type, t5.name, t5.email, t5.phone, t6.role as overall_official_role, t6.name as overall_official_name
 FROM ctgov.studies t
 left join ctgov.browse_conditions t1 on t.nct_id = t1.nct_id
@@ -30,7 +29,7 @@ left join ctgov.overall_officials t6 on t.nct_id=t6.nct_id
 where t.study_type = 'Interventional'
 and t4.country = 'United States'
 and t.overall_status in ('Recruiting','Enrolling by invitation','Active, not recruiting')
-and t1.downcase_mesh_term like ('%alzheimer%') 
+and t1.downcase_mesh_term like ('%alzheimer%')
 or t2.downcase_name like('%alzheimer%') "
 
 #Connect to the live AACT database
